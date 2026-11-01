@@ -4,7 +4,9 @@ from playwright.sync_api import sync_playwright, expect
 # Запускаем playwright
 with sync_playwright() as playwright:
     # Запускаем браузер и создаем новую страницу
-    browser = playwright.chromium.launch(headless=True)
+    browser = playwright.chromium.launch(headless=False)
+    # Создаем новый контекст браузера (новая сессия, которая изолирована от других)
+    context = browser.new_context()
     page = browser.new_page()
 
     # Переходим на тестируемую страницу
@@ -36,3 +38,16 @@ with sync_playwright() as playwright:
         'dashboard-toolbar-title-text')
     expect(dashboard_toolbar_title_text).to_be_visible()
     expect(dashboard_toolbar_title_text).to_have_text('Dashboard')
+
+    # Сохраняем состояние браузера (куки и localStorage) в файл для дальнейшего использования
+    context.storage_state(path="browser-state.json")
+
+
+with sync_playwright() as playwright:
+    browser = playwright.chromium.launch(headless=False)
+    # Указываем файл с сохраненным состоянием
+    context = browser.new_context(storage_state="browser-state.json")
+    page = context.new_page()
+
+    page.goto(
+        "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
