@@ -41,7 +41,9 @@ def initialize_browser_state(playwright: Playwright):
     # Добавил ожидание networkidle, без него localStorage не успевал записаться в файл
     page.wait_for_load_state('networkidle')
 
-    context.storage_state(path="browser-state.json")
+    yield context.storage_state(path="browser-state.json")
+
+    browser.close()
 
 
 # фикстура открывает новую страницу браузера, используя сохраненное состояние из файла browser-state.json
@@ -51,3 +53,5 @@ def chromium_page_with_state(initialize_browser_state, playwright: Playwright) -
     context = browser.new_context(storage_state="browser-state.json")
 
     yield context.new_page()  # type: ignore
+
+    browser.close()
