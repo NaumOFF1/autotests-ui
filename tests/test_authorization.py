@@ -2,6 +2,8 @@ from playwright.sync_api import sync_playwright, expect, Page
 import pytest
 
 
+@pytest.mark.regression
+@pytest.mark.authorization
 @pytest.mark.parametrize('email, password', [
     ("user.name@gmail.com", "password"),
     ("user.name@gmail.com", "  "),
