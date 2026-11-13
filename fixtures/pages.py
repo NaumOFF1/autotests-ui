@@ -4,7 +4,7 @@ from pages.dashboard_page import DashboardPage
 from pages.login_page import LoginPage
 from pages.registration_page import RegistrationPage
 from pages.courses_list_page import CoursesListPage
-from pages.creat_course_page import CreatCoursePage
+from pages.create_course_page import CreateCoursePage
 
 
 @pytest.fixture
@@ -28,5 +28,5 @@ def courses_list_page(chromium_page_with_state: Page) -> CoursesListPage:
 
 
 @pytest.fixture
-def create_course_page(chromium_page_with_state: Page) -> CreatCoursePage:
-    return CreatCoursePage(page=chromium_page_with_state)
+def create_course_page(chromium_page_with_state: Page) -> CreateCoursePage:
+    return CreateCoursePage(page=chromium_page_with_state)

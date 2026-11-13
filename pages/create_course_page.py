@@ -2,8 +2,8 @@ from pages.base_page import BasePage
 from playwright.sync_api import Page, expect
 
 
-class CreatCoursePage(BasePage):
-    def __init__(self, page: Page):
+class CreateCoursePage(BasePage):
+    def __init__(self, page: Page) -> None:
         super().__init__(page)
 
         self.create_course_title = page.get_by_test_id('create-course-toolbar-title-text')
@@ -18,7 +18,7 @@ class CreatCoursePage(BasePage):
         self.preview_image_upload_title = page.get_by_test_id(
             'create-course-preview-image-upload-widget-info-title-text')
         self.preview_image_upload_description = page.get_by_test_id(
-            'create-course-preview-image-upload-description-text')
+            'create-course-preview-image-upload-widget-info-description-text')
         self.preview_image_upload_button = page.get_by_test_id(
             'create-course-preview-image-upload-widget-upload-button')
         self.preview_image_remove_button = page.get_by_test_id(
@@ -45,13 +45,13 @@ class CreatCoursePage(BasePage):
         expect(self.create_course_title).to_be_visible()
         expect(self.create_course_title).to_have_text('Create course')
 
-    def click_create_course(self):
+    def click_create_course_button(self):
         self.create_course_button.click()
 
     def check_visible_course_button(self):
         expect(self.create_course_button).to_be_visible()
 
-    def check_disabled_course_button(self):
+    def check_disabled_create_course_button(self):
         expect(self.create_course_button).to_be_disabled()
 
     def check_visible_image_preview_empty_view(self):
@@ -94,8 +94,8 @@ class CreatCoursePage(BasePage):
             max_score: str,
             min_score: str,
     ):
-        expect(self.create_course_title).to_be_visible()
-        expect(self.create_course_title).to_have_value(title)
+        expect(self.create_course_title_input).to_be_visible()
+        expect(self.create_course_title_input).to_have_value(title)
 
         expect(self.create_course_estimated_time_input).to_be_visible()
         expect(self.create_course_estimated_time_input).to_have_value(estimated_time)

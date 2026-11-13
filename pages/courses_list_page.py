@@ -1,6 +1,5 @@
 from playwright.sync_api import Page, expect
 from pages.base_page import BasePage
-from playwright_courses import courses_list_title_text
 
 
 class CoursesListPage(BasePage):
@@ -27,6 +26,9 @@ class CoursesListPage(BasePage):
     def click_create_course_button(self):
         expect(self.courses_title).to_be_visible()
         self.create_course_button.click()
+
+    def check_visible_create_course_button(self):
+        expect(self.courses_title).to_be_visible()
 
     def check_visible_courses_title(self):
         expect(self.courses_title).to_be_visible()
