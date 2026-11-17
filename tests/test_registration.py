@@ -14,12 +14,12 @@ def test_successful_registration(
         'https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration'
     )
     registration_page.registration_form.fill(
-        email="email",
+        email="user@example.com",
         username="username",
         password="password"
     )
     registration_page.registration_form.check_visible(
-        email="email",
+        email="user@example.com",
         username="username",
         password="password"
     )
