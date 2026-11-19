@@ -1,6 +1,9 @@
 from components.base_component import BaseComponent
 
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
+
+from elements.image import Image
+from elements.text import Text
 
 
 class ChartViewComponent(BaseComponent):
@@ -8,10 +11,11 @@ class ChartViewComponent(BaseComponent):
         super().__init__(page)
 
         self.title_text = title
-        self.title = page.get_by_test_id(f'{identifier}-widget-title-text')
-        self.chart = page.get_by_test_id(f'{identifier}-{chart_type}-chart')
+        self.title = Text(page, f'{identifier}-widget-title-text', 'Title')
+        self.chart = Image(page, f'{identifier}-{chart_type}-chart', 'Chart')
 
     def check_visible(self):
-        expect(self.title).to_be_visible()
-        expect(self.title).to_have_text(self.title_text)
-        expect(self.chart).to_be_visible()
+        self.title.check_visible()
+        self.title.check_have_text(self.title_text)
+
+        self.chart.check_visible()
