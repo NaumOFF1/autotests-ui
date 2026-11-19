@@ -1,5 +1,4 @@
 from playwright.sync_api import Page
-from pygments.lexers import q
 
 from components.charts.chart_view_component import ChartViewComponent
 from components.dashboard.dashboard_toolbar_view_component import DashboardToolbarViewComponent
