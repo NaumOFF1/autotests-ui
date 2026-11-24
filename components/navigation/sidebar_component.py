@@ -1,10 +1,12 @@
+import re
+
+import allure
 from playwright.sync_api import Page
 
 from components.base_component import BaseComponent
 from components.navigation.sidebar_list_item_component import (
     SidebarListItemComponent,
 )
-import re
 
 
 class SidebarComponent(BaseComponent):
@@ -15,23 +17,20 @@ class SidebarComponent(BaseComponent):
         self.courses_list_item = SidebarListItemComponent(page)
         self.dashboard_list_item = SidebarListItemComponent(page)
 
+    @allure.step("Check visible sidebar")
     def check_visible(self):
-        self.logout_list_item.check_visible('logout','Logout')
-        self.courses_list_item.check_visible('courses', 'Courses')
-        self.dashboard_list_item.check_visible('dashboard', 'Dashboard')
+        self.logout_list_item.check_visible("logout", "Logout")
+        self.courses_list_item.check_visible("courses", "Courses")
+        self.dashboard_list_item.check_visible("dashboard", "Dashboard")
 
+    @allure.step("Click logout on sidebar")
     def click_logout(self):
-        self.logout_list_item.navigate(
-            re.compile(r".*/#/auth/login"), 'logout'
-        )
+        self.logout_list_item.navigate(re.compile(r".*/#/auth/login"), "logout")
 
+    @allure.step("Click courses on courses")
     def click_courses(self):
-        self.courses_list_item.navigate(
-            re.compile(r".*/#/courses"), 'courses'
-        )
+        self.courses_list_item.navigate(re.compile(r".*/#/courses"), "courses")
 
+    @allure.step("Click dashboard on sidebar")
     def click_dashboard(self):
-        self.dashboard_list_item.navigate(
-            re.compile(r".*/#/dashboard"), 'dashboard'
-        )
-
+        self.dashboard_list_item.navigate(re.compile(r".*/#/dashboard"), "dashboard")

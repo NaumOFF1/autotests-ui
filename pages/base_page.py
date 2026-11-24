@@ -1,6 +1,7 @@
+from re import Pattern
+
 from playwright.sync_api import Page, expect
-from typing import Pattern
-import re
+
 
 class BasePage:
     def __init__(self, page: Page):

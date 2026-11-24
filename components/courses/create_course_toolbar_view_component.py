@@ -12,17 +12,15 @@ class CreateCourseToolbarViewComponent(BaseComponent):
         super().__init__(page)
 
         self.title = Text(
-            page, 'create-course-toolbar-title-text', 'Create course title'
+            page, "create-course-toolbar-title-text", "Create course title"
         )
         self.button = Button(
-            page,
-            'create-course-toolbar-create-course-button',
-            'Create course button'
+            page, "create-course-toolbar-create-course-button", "Create course button"
         )
 
     def check_visible(self, is_create_course_disabled=True):
         self.title.check_visible()
-        self.title.check_have_text('Create course')
+        self.title.check_have_text("Create course")
 
         self.button.check_visible()
         if is_create_course_disabled:
@@ -32,4 +30,4 @@ class CreateCourseToolbarViewComponent(BaseComponent):
 
     def click_create_course_button(self):
         self.button.click()
-        self.check_current_url(re.compile(r'.*/#/courses'))
+        self.check_current_url(re.compile(r".*/#/courses"))

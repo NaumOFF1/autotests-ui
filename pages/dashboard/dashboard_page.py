@@ -1,10 +1,13 @@
 from playwright.sync_api import Page
 
 from components.charts.chart_view_component import ChartViewComponent
-from components.dashboard.dashboard_toolbar_view_component import DashboardToolbarViewComponent
+from components.dashboard.dashboard_toolbar_view_component import (
+    DashboardToolbarViewComponent,
+)
 from components.navigation.navbar_component import NavbarComponent
 from components.navigation.sidebar_component import SidebarComponent
 from pages.base_page import BasePage
+
 
 class DashboardPage(BasePage):
     def __init__(self, page: Page):
@@ -15,8 +18,15 @@ class DashboardPage(BasePage):
 
         self.toolbar_view = DashboardToolbarViewComponent(page)
 
-        self.students_chart_view = ChartViewComponent(page, 'students', 'bar', title='Students')
-        self.activities_chart_view = ChartViewComponent(page, 'activities', 'line', title='Activities')
-        self.courses_chart_view = ChartViewComponent(page, 'courses', 'pie', title='Courses')
-        self.scores_chart_view = ChartViewComponent(page, 'scores', 'scatter', title='Scores')
-        
+        self.students_chart_view = ChartViewComponent(
+            page, "students", "bar", title="Students"
+        )
+        self.activities_chart_view = ChartViewComponent(
+            page, "activities", "line", title="Activities"
+        )
+        self.courses_chart_view = ChartViewComponent(
+            page, "courses", "pie", title="Courses"
+        )
+        self.scores_chart_view = ChartViewComponent(
+            page, "scores", "scatter", title="Scores"
+        )

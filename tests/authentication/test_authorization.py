@@ -1,5 +1,6 @@
 import allure
 import pytest
+from allure_commons.types import Severity
 
 from pages.authentication.login_page import LoginPage
 from pages.authentication.registration_page import RegistrationPage
@@ -8,7 +9,6 @@ from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
-from allure_commons.types import Severity
 
 
 @pytest.mark.regression
@@ -21,78 +21,68 @@ from allure_commons.types import Severity
 @allure.suite(AllureFeature.AUTHENTICATION)
 @allure.sub_suite(AllureStory.AUTHORIZATION)
 class TestAuthorization:
-    @allure.tag('USER_LOGIN')
-    @allure.title('Successful user authorization')
+    @allure.tag("USER_LOGIN")
+    @allure.title("Successful user authorization")
     @allure.severity(Severity.BLOCKER)
     def test_successful_authorization(
-            self,
-            dashboard_page: DashboardPage,
-            registration_page: RegistrationPage,
-            login_page: LoginPage
+        self,
+        dashboard_page: DashboardPage,
+        registration_page: RegistrationPage,
+        login_page: LoginPage,
     ):
         registration_page.visit(
-            'https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration'
+            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration"
         )
         registration_page.registration_form.fill(
-            email="email@gmail.com",
-            username="username",
-            password="password"
+            email="email@gmail.com", username="username", password="password"
         )
         registration_page.click_registration_button()
 
         dashboard_page.toolbar_view.check_visible()
-        dashboard_page.navbar.check_visible(username='username')
+        dashboard_page.navbar.check_visible(username="username")
         dashboard_page.sidebar.check_visible()
         dashboard_page.sidebar.click_logout()
 
-        login_page.login_form.fill(
-            email="email@gmail.com",
-            password="password"
-        )
+        login_page.login_form.fill(email="email@gmail.com", password="password")
         login_page.click_login_button()
 
         dashboard_page.toolbar_view.check_visible()
-        dashboard_page.navbar.check_visible(username='username')
+        dashboard_page.navbar.check_visible(username="username")
         dashboard_page.sidebar.check_visible()
 
     @pytest.mark.parametrize(
-        'email, password',
+        "email, password",
         [
             ("user.name@gmail.com", "password"),
             ("user.name@gmail.com", "  "),
-            ("  ", "password")
-        ]
+            ("  ", "password"),
+        ],
     )
     @allure.tag(AllureTag.USER_LOGIN)
-    @allure.title('User login with wrong email or password')
+    @allure.title("User login with wrong email or password")
     @allure.severity(Severity.CRITICAL)
-    def test_wrong_email_or_password_authorization(self, login_page: LoginPage, email: str, password: str):
+    def test_wrong_email_or_password_authorization(
+        self, login_page: LoginPage, email: str, password: str
+    ):
         login_page.visit(
-            'https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login')
-        login_page.login_form.fill(
-            email=email,
-            password=password
+            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login"
         )
-        login_page.login_form.check_visible(
-            email=email,
-            password=password
-        )
+        login_page.login_form.fill(email=email, password=password)
+        login_page.login_form.check_visible(email=email, password=password)
         login_page.click_login_button()
         login_page.check_visible_wrong_email_or_password_alert()
 
     @allure.tag(AllureTag.NAVIGATION)
-    @allure.title('Navigate from authorization to registration')
+    @allure.title("Navigate from authorization to registration")
     @allure.severity(Severity.NORMAL)
     def test_navigate_from_authorization_to_registration(
-            self,
-            login_page: LoginPage,
-            registration_page: RegistrationPage
+        self, login_page: LoginPage, registration_page: RegistrationPage
     ):
-        login_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login')
+        login_page.visit(
+            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login"
+        )
         login_page.click_registration_link()
 
         registration_page.registration_form.check_visible(
-            email="",
-            username="",
-            password=""
+            email="", username="", password=""
         )
